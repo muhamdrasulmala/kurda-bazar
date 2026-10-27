@@ -1,0 +1,1 @@
+# kurda-bazar
