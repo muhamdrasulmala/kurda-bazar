@@ -1,0 +1,6 @@
+{
+  "name": "کوردە بازاڕ - قایشی ڕاستکردنەوەی پشت",
+  "description": "فرۆشگای تایبەت بە قایشی پزیشکی ڕاستکردنەوەی پشت و کەمەر بە گەیاندنی خێرا بۆ هەموو شارەکانی کوردستان و عێراق",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

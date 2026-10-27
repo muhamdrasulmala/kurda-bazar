@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>کوردە بازاڕ - قایشی پزیشکی ڕاستکردنەوەی پشت و کەمەر</title>
+  <meta name="description" content="باشترین قایشی پزیشکی بۆ ڕاستکردنەوەی پشت و کەمەر و نەهێشتنی ئازاری بڕبڕەی پشت بە گەیاندنی خۆڕایی لە کوردستان">
+
+  <!-- فۆنتی کوردی فەرمی Vazirmatn -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- دیزاینی مۆدێرن بە Tailwind CSS (ڕاستەوخۆ کار دەکات بێ پێویستی بە دامەزراندن) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Vazirmatn', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#ecfdf5',
+              500: '#10b981',
+              600: '#059669',
+              700: '#047857',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Vazirmatn', sans-serif;
+      background-color: #020617;
+      color: #f8fafc;
+    }
+    input, select, textarea, button {
+      font-family: inherit;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col selection:bg-emerald-500 selection:text-white">
+
+  <!-- ==================== ١. سەرپەڕە (HEADER) ==================== -->
+  <header class="sticky top-0 z-40 bg-slate-900/90 backdrop-blur-md border-b border-slate-800">
+    <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
+      
+      <!-- لۆگۆ و ناوی فرۆشگا -->
+      <div class="flex items-center gap-2.5">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center text-white shadow-lg shadow-emerald-500/20 text-xl font-bold">
+          ⚜️
+        </div>
+        <div>
+          <h1 class="text-lg font-black text-white tracking-tight">کوردە بازاڕ</h1>
+          <p class="text-[11px] text-emerald-400 font-medium">فرۆشگای تایبەت بە تەندروستی پشت</p>
+        </div>
+      </div>
+
+      <!-- بەشی پەیوەندی و دوگمەی داواکردن -->
+      <div class="flex items-center gap-2">
+        <button onclick="scrollToOrder()" class="px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs rounded-xl shadow-lg shadow-emerald-500/20 transition-all cursor-pointer">
+          داواکردنی ڕاستەوخۆ ⚡
+        </button>
+
+        <!-- دوگمەی شاراوەی ئەدمین (ڕەمزەکەی kurdabazar1@) -->
+        <button onclick="openAdminModal()" title="پانێڵی بەڕێوەبەر" class="p-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-400 hover:text-emerald-400 transition-colors">
+          🔒
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+
+  <!-- ==================== ئاگاداری گەیاندنی خۆڕایی (BANNER) ==================== -->
+  <div class="bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-600 py-2.5 px-4 text-center text-xs sm:text-sm font-bold text-slate-950 shadow-inner">
+    🎉 ئۆفەری تایبەت: نرخی ١٥,٠٠٠ دینار + گەیاندن ١٠٠٪ خۆڕاییە بۆ هەموو کوردستان و عێراق!
+  </div>
+
+
+  <!-- ==================== ٢. فۆرمی داواکردنی خێرا (لە سەرەوەیە) ==================== -->
+  <section id="order-section" class="py-8 px-4 max-w-2xl mx-auto w-full">
+    <div class="bg-slate-900 border-2 border-emerald-500/50 rounded-3xl p-5 sm:p-8 shadow-2xl relative overflow-hidden">
+      
+      <!-- تەوقی جوانکاری -->
+      <div class="absolute top-0 right-0 left-0 h-1.5 bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-500"></div>
+
+      <div class="text-center mb-6">
+        <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-bold border border-emerald-500/30">
+          داواکردنی ڕاستەوخۆ
+        </span>
+        <h2 class="text-xl sm:text-2xl font-black text-white mt-2">
+          فۆرمی داواکردنی قایشی پزیشکی ڕاستکردنەوەی پشت
+        </h2>
+        <p class="text-xs text-slate-300 mt-1">
+          زانیارییەکانت پڕبکەرەوە و لە ماوەی ٢٤ بۆ ٤٨ کاتژمێردا دەگاتە بەردەم ماڵەکەت
+        </p>
+      </div>
+
+      <!-- نرخی زەق و گەیاندنی خۆڕایی -->
+      <div class="bg-slate-950 p-4 rounded-2xl border border-slate-800 flex items-center justify-between mb-6">
+        <div>
+          <span class="text-xs text-slate-400 block">کۆی نرخ لەگەڵ گەیاندن:</span>
+          <div class="flex items-baseline gap-1 mt-0.5">
+            <span class="text-2xl sm:text-3xl font-black text-emerald-400">١٥,٠٠٠</span>
+            <span class="text-xs text-slate-300 font-bold">دیناری عێراقی</span>
+          </div>
+        </div>
+        <div class="text-left">
+          <span class="inline-block px-3 py-1 bg-emerald-500 text-slate-950 font-black text-xs rounded-xl shadow-md">
+            گەیاندن خۆڕاییە ✓
+          </span>
+          <span class="block text-[11px] text-slate-400 mt-1">پارەدان لە کاتی وەرگرتن</span>
+        </div>
+      </div>
+
+      <!-- فۆرمی ناردن -->
+      <form id="orderForm" onsubmit="handleOrderSubmit(event)" class="space-y-4">
+        
+        <!-- ناوی سیانی -->
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1.5">ناوی سیانی:</label>
+          <input type="text" id="custName" required placeholder="ناوی تەواوت بنووسە..." class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-500 text-xs sm:text-sm focus:outline-none focus:border-emerald-500 transition-colors">
+        </div>
+
+        <!-- ژمارەی مۆبایل -->
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1.5">ژمارەی مۆبایل (پەیوەندی/واتسئەپ):</label>
+          <input type="tel" id="custPhone" required placeholder="0750XXXXXXX یان 0770XXXXXXX" class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-500 text-xs sm:text-sm focus:outline-none focus:border-emerald-500 transition-colors text-right" dir="ltr">
+        </div>
+
+        <!-- ژمارەی دووەم (ئارەزوومەندانە) -->
+        <div>
+          <label class="block text-xs font-bold text-slate-400 mb-1.5">ژمارەی دووەمی مۆبایل (ئەگەر هەیە):</label>
+          <input type="tel" id="custPhone2" placeholder="بۆ ئەوەی پەیوەندیت پێوە بکەین گەر یەکەم داخرابوو" class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800/80 text-white placeholder-slate-600 text-xs focus:outline-none focus:border-emerald-500 transition-colors" dir="ltr">
+        </div>
+
+        <!-- شار و پارێزگا -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1.5">شار / پارێزگا:</label>
+            <select id="custCity" required class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs sm:text-sm focus:outline-none focus:border-emerald-500 transition-colors">
+              <option value="هەولێر">هەولێر</option>
+              <option value="سلێمانی">سلێمانی</option>
+              <option value="دهۆک">دهۆک</option>
+              <option value="کەرکووک">کەرکووک</option>
+              <option value="هەڵەبجە">هەڵەبجە</option>
+              <option value="سۆران">سۆران</option>
+              <option value="زاخۆ">زاخۆ</option>
+              <option value="گەرمیان / کەلار">گەرمیان / کەلار</option>
+              <option value="ڕانیە / ڕاپەڕین">ڕانیە / ڕاپەڕین</option>
+              <option value="شارەکانی تری عێراق (بەغداد، بەسڕە و هتد)">شارەکانی تر</option>
+            </select>
+          </div>
+
+          <!-- کێش / وەزن بۆ دیاریکردنی سایز -->
+          <div>
+            <label class="block text-xs font-bold text-slate-300 mb-1.5">کێش (وەزن) بە کیلۆگرام:</label>
+            <input type="number" id="custWeight" required min="35" max="180" value="75" placeholder="وەک ٧٥" class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs sm:text-sm focus:outline-none focus:border-emerald-500 transition-colors">
+          </div>
+        </div>
+
+        <!-- ناونیشانی تەواو -->
+        <div>
+          <label class="block text-xs font-bold text-slate-300 mb-1.5">ناونیشانی تەواو (گەڕەک، شوێنی دیار):</label>
+          <input type="text" id="custAddress" required placeholder="گەڕەک، ناوی شەقام، نزیک قوتابخانە یان مزگەوت..." class="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-500 text-xs sm:text-sm focus:outline-none focus:border-emerald-500 transition-colors">
+        </div>
+
+        <!-- تێبینی زیادە -->
+        <div>
+          <label class="block text-xs font-bold text-slate-400 mb-1.5">تێبینی یان کاتی گونجاو بۆ پەیوەندی (ئارەزوومەندانە):</label>
+          <input type="text" id="custNotes" placeholder="بۆ نموونە: دوای نیوەڕۆ پەیوەندی بکەن..." class="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800/80 text-white placeholder-slate-600 text-xs focus:outline-none focus:border-emerald-500 transition-colors">
+        </div>
+
+        <!-- دوگمەی ناردنی داواکاری -->
+        <button type="submit" id="submitBtn" class="w-full py-4 px-6 bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black text-sm sm:text-base rounded-2xl shadow-xl shadow-emerald-500/25 transition-all transform active:scale-[0.98] cursor-pointer flex items-center justify-center gap-2">
+          <span>تەواوکردن و ناردنی داواکاری</span>
+          <span class="text-xl">🛍️</span>
+        </button>
+
+      </form>
+
+      <!-- پەیامی سەرکەوتوویی لە دوای داواکردن -->
+      <div id="successBox" class="hidden text-center py-6">
+        <div class="w-16 h-16 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl">
+          ✓
+        </div>
+        <h3 class="text-xl font-bold text-white">دەستت خۆش بێت! داواکارییەکەت بە سەرکەوتوویی تۆمارکرا</h3>
+        <p class="text-xs text-slate-300 mt-2 max-w-md mx-auto">
+          لە ماوەیەکی کەمدا لە ڕێگەی پەیوەندی تەلەفۆنی یان واتسئەپەوە پەیوەندیت پێوە دەکەین بۆ گەیاندنی قایشەکەت.
+        </p>
+        <button onclick="resetOrderForm()" class="mt-4 px-5 py-2 bg-slate-800 hover:bg-slate-700 text-xs rounded-xl text-slate-200">
+          داواکردنی دانەیەکی تر
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ==================== ٣. تایبەتمەندییە پزیشکییەکان (FEATURES) ==================== -->
+  <section class="py-12 px-4 max-w-4xl mx-auto w-full">
+    <div class="text-center mb-10">
+      <h2 class="text-2xl sm:text-3xl font-black text-white">
+        بۆچی ئەم قایشە پزیشکییە پێویستە بۆ تۆ؟
+      </h2>
+      <p class="text-xs sm:text-sm text-slate-400 mt-2">
+        بە تەواوی دروستکراوە بەپێی ستانداردی پزیشکی بۆ ڕێکخستنی شێوازی وەستان و دانیشتن
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <div class="p-5 rounded-2xl bg-slate-900 border border-slate-800 text-center">
+        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mx-auto mb-3 text-2xl">
+          🦴
+        </div>
+        <h3 class="font-bold text-white text-sm mb-1">ڕاستکردنەوەی بڕبڕەی پشت</h3>
+        <p class="text-xs text-slate-400">شانەکانت بەرەو دواوە دەبات و قۆقزی و کوپی پشت لە ٢ هەفتەدا چارەسەر دەکات.</p>
+      </div>
+
+      <div class="p-5 rounded-2xl bg-slate-900 border border-slate-800 text-center">
+        <div class="w-12 h-12 rounded-xl bg-teal-500/10 text-teal-400 flex items-center justify-center mx-auto mb-3 text-2xl">
+          🌿
+        </div>
+        <h3 class="font-bold text-white text-sm mb-1">قوماشی هەناسەدەر و نەرم</h3>
+        <p class="text-xs text-slate-400">ئارەق ناکاتەوە و تەواو ئاسوودەیە بۆ ئەوەی لەژێر جلوبەرگ بە ئاسانی لەبەر بکرێت.</p>
+      </div>
+
+      <div class="p-5 rounded-2xl bg-slate-900 border border-slate-800 text-center">
+        <div class="w-12 h-12 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center mx-auto mb-3 text-2xl">
+          ⚡
+        </div>
+        <h3 class="font-bold text-white text-sm mb-1">سایزی گونجاو بۆ هەمووان</h3>
+        <p class="text-xs text-slate-400">بە قایشی تایبەت فراوان و تەسک دەکرێتەوە و بۆ پیاوان و ئافرەتان گونجاوە.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ==================== ٤. دڵنیایی و گەرەنتی (GUARANTEE) ==================== -->
+  <section class="py-8 px-4 max-w-3xl mx-auto w-full">
+    <div class="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 border border-emerald-500/30 rounded-3xl p-6 sm:p-8 flex flex-col sm:flex-row items-center gap-6">
+      <div class="w-16 h-16 rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-3xl shrink-0">
+        🛡️
+      </div>
+      <div>
+        <h3 class="text-lg font-bold text-white">١٠٠٪ گەرەنتی گەڕاندنەوە و تاقیکردنەوە</h3>
+        <p class="text-xs text-slate-300 mt-1 leading-relaxed">
+          ئەگەر کێشەی لە قەبارە یان کوالیتی هەبوو، لە کاتی وەرگرتندا بە بەردەم دلیڤەرییەکە دەتوانیت بیپشکنیت و ئەگەر بە دڵت نەبوو بە خۆڕایی بیگەڕێنیتەوە!
+        </p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ==================== ٥. پرسیارە باوەکان (FAQ) ==================== -->
+  <section class="py-10 px-4 max-w-2xl mx-auto w-full">
+    <h2 class="text-xl font-bold text-white text-center mb-6">پرسیارە باوەکان</h2>
+    
+    <div class="space-y-3">
+      <div class="p-4 rounded-xl bg-slate-900 border border-slate-800">
+        <h4 class="text-xs sm:text-sm font-bold text-emerald-400">ڕۆژانە چەند کاتژمێر لەبەری بکەم؟</h4>
+        <p class="text-xs text-slate-300 mt-1">لە هەفتەی یەکەم ڕۆژانە ١٥ بۆ ٣٠ خولەک بەسە، دواتر دەتوانیت ڕۆژانە ١ بۆ ٢ کاتژمێر لەبەری بکەیت تا ماسولکەکانت خۆیان فێری وەستانی ڕاست دەبن.</p>
+      </div>
+
+      <div class="p-4 rounded-xl bg-slate-900 border border-slate-800">
+        <h4 class="text-xs sm:text-sm font-bold text-emerald-400">گەیاندن چەند ڕۆژی پێدەچێت؟</h4>
+        <p class="text-xs text-slate-300 mt-1">بۆ شارەکانی هەرێمی کوردستان (هەولێر، سلێمانی، دهۆک و هتد) تەنها ٢٤ کاتژمێر، بۆ شارەکانی تریش زۆرترین ماوە ٤٨ کاتژمێرە بە گەیاندنی خۆڕایی.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ==================== پێپەڕە (FOOTER) ==================== -->
+  <footer class="mt-auto py-8 border-t border-slate-900 bg-slate-950 text-center text-xs text-slate-500">
+    <p>مافی لەبەرگرتنەوەی پارێزراوە بۆ فرۆشگای کوردە بازاڕ © 2026</p>
+    <p class="mt-1 text-[11px] text-slate-600">نرخ: ١٥,٠٠٠ دینار | گەیاندن خۆڕایی بۆ سەرجەم شارەکان</p>
+  </footer>
+
+
+  <!-- ==================== پەنجەرەی ئەدمین (ADMIN MODAL) ==================== -->
+  <div id="adminModal" class="hidden fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-lg p-6 max-h-[90vh] overflow-y-auto">
+      
+      <!-- سەرەوەی ئەدمین -->
+      <div class="flex items-center justify-between pb-4 border-b border-slate-800 mb-4">
+        <h3 class="font-bold text-white text-sm flex items-center gap-2">
+          <span>🔒 پانێڵی بەڕێوەبەری کوردە بازاڕ</span>
+        </h3>
+        <button onclick="closeAdminModal()" class="text-slate-400 hover:text-white text-lg">✕</button>
+      </div>
+
+      <!-- دەروازەی ڕەمز (ئەگەر هێشتا ڕەمز نەدرابێت) -->
+      <div id="adminLoginSection">
+        <p class="text-xs text-slate-300 mb-3">تکایە وشەی نهێنی بنووسە بۆ بینینی داواکارییەکان:</p>
+        <div class="flex gap-2">
+          <input type="password" id="adminPassInput" placeholder="وشەی نهێنی..." class="flex-1 px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs focus:outline-none focus:border-emerald-500" dir="ltr">
+          <button onclick="checkAdminPassword()" class="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs rounded-xl">چوونەژوورەوە</button>
+        </div>
+        <p id="adminErrorMsg" class="text-rose-400 text-xs mt-2 hidden">وشەی نهێنی هەڵەیە!</p>
+      </div>
+
+      <!-- بەشی ناوەوەی ئەدمین -->
+      <div id="adminContentSection" class="hidden space-y-5">
+        
+        <!-- ڕێکخستنی تیلیگرام -->
+        <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800">
+          <h4 class="text-xs font-bold text-emerald-400 mb-2">ڕێکخستنی ناردن بۆ تیلیگرام:</h4>
+          <div class="space-y-2 text-xs">
+            <input type="text" id="tgToken" placeholder="Bot Token (تووکنی بۆت)" class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 text-white font-mono" dir="ltr">
+            <input type="text" id="tgChat1" placeholder="Chat ID 1 (ئایدی چاتی یەکەم)" class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 text-white font-mono" dir="ltr">
+            <input type="text" id="tgChat2" placeholder="Chat ID 2 (ئایدی چاتی دووەم - ئارەزوومەندانە)" class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 text-white font-mono" dir="ltr">
+            <button onclick="saveTelegramSettings()" class="w-full py-2 bg-sky-600 hover:bg-sky-500 text-white font-bold rounded-lg mt-1">پاشەکەوتکردنی تیلیگرام</button>
+          </div>
+        </div>
+
+        <!-- لیستی داواکارییە تۆمارکراوەکان -->
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <h4 class="text-xs font-bold text-white">داواکارییە تۆمارکراوەکان (<span id="ordersCountDisplay">0</span>):</h4>
+            <button onclick="clearAllOrders()" class="text-rose-400 hover:text-rose-300 text-[11px]">سڕینەوەی هەمووی</button>
+          </div>
+          <div id="ordersList" class="space-y-2 max-h-60 overflow-y-auto text-xs">
+            <!-- داواکارییەکان لێرە بە شێوەی ئۆتۆماتیکی نیشان دەدرێن -->
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ==================== ٦. کۆدە جێبەجێکارییەکان (JAVASCRIPT) ==================== -->
+  <script>
+    // ڕەمزی فەرمی ئەدمین
+    const ADMIN_PASSWORD = "kurdabazar1@";
+
+    // بەرەو فۆرمەکە خولێنەوە
+    function scrollToOrder() {
+      document.getElementById('order-section').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // ناردنی داواکاری لە فۆرمەکە
+    async function handleOrderSubmit(e) {
+      e.preventDefault();
+      
+      const submitBtn = document.getElementById('submitBtn');
+      submitBtn.disabled = true;
+      submitBtn.innerText = "تکایە چاوەڕوان بە...";
+
+      const orderData = {
+        id: "KB-" + Date.now().toString(36).toUpperCase(),
+        fullName: document.getElementById('custName').value,
+        phone: document.getElementById('custPhone').value,
+        phone2: document.getElementById('custPhone2').value,
+        city: document.getElementById('custCity').value,
+        weight: document.getElementById('custWeight').value,
+        address: document.getElementById('custAddress').value,
+        notes: document.getElementById('custNotes').value,
+        price: "15,000 دینار",
+        time: new Date().toLocaleString('ckb-IQ')
+      };
+
+      // پاشەکەوتکردن لە ناو مۆبایلەکە
+      let orders = JSON.parse(localStorage.getItem('kb_orders') || '[]');
+      orders.unshift(orderData);
+      localStorage.setItem('kb_orders', JSON.stringify(orders));
+
+      // ناردن بۆ تیلیگرام ئەگەر بۆت پەیوەست کرابێت
+      await sendToTelegram(orderData);
+
+      // نیشاندانی پەیامی سەرکەوتن
+      document.getElementById('orderForm').classList.add('hidden');
+      document.getElementById('successBox').classList.remove('hidden');
+      submitBtn.disabled = false;
+      submitBtn.innerText = "تەواوکردن و ناردنی داواکاری";
+    }
+
+    // دووبارە کردنەوەی فۆرمەکە
+    function resetOrderForm() {
+      document.getElementById('orderForm').reset();
+      document.getElementById('orderForm').classList.remove('hidden');
+      document.getElementById('successBox').classList.add('hidden');
+    }
+
+    // پەیوەستکردنی ڕاستەوخۆ بە تیلیگرام
+    async function sendToTelegram(order) {
+      const tgConfig = JSON.parse(localStorage.getItem('kb_tg_config') || '{}');
+      if (!tgConfig.token || !tgConfig.chat1) return;
+
+      const message = `🛍 *داواکاری نوێ لە کوردە بازاڕ*
+━━━━━━━━━━━━━━━
+👤 *ناو:* ${order.fullName}
+📞 *مۆبایل:* \`${order.phone}\`
+${order.phone2 ? `📱 *مۆبایلی دووەم:* \`${order.phone2}\`\n` : ''}📍 *شار:* ${order.city}
+🏠 *ناونیشان:* ${order.address}
+⚖️ *کێش:* ${order.weight} کگم
+💰 *نرخ:* ١٥,٠٠٠ دینار (گەیاندن خۆڕایی)
+${order.notes ? `📝 *تێبینی:* ${order.notes}\n` : ''}🆔 *کۆد:* \`${order.id}\`
+⏰ *کات:* ${order.time}`;
+
+      const chatIds = [tgConfig.chat1, tgConfig.chat2].filter(Boolean);
+      for (const cid of chatIds) {
+        try {
+          await fetch(`https://api.telegram.org/bot${tgConfig.token}/sendMessage`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              chat_id: cid,
+              text: message,
+              parse_mode: 'Markdown'
+            })
+          });
+        } catch (err) {
+          console.error("Telegram error:", err);
+        }
+      }
+    }
+
+    // ئەدمین مۆداڵ
+    function openAdminModal() {
+      document.getElementById('adminModal').classList.remove('hidden');
+    }
+
+    function closeAdminModal() {
+      document.getElementById('adminModal').classList.add('hidden');
+    }
+
+    function checkAdminPassword() {
+      const input = document.getElementById('adminPassInput').value;
+      if (input === ADMIN_PASSWORD) {
+        document.getElementById('adminLoginSection').classList.add('hidden');
+        document.getElementById('adminContentSection').classList.remove('hidden');
+        loadAdminData();
+      } else {
+        document.getElementById('adminErrorMsg').classList.remove('hidden');
+      }
+    }
+
+    function loadAdminData() {
+      // بارکردنی تیلیگرام
+      const tgConfig = JSON.parse(localStorage.getItem('kb_tg_config') || '{}');
+      if (tgConfig.token) document.getElementById('tgToken').value = tgConfig.token;
+      if (tgConfig.chat1) document.getElementById('tgChat1').value = tgConfig.chat1;
+      if (tgConfig.chat2) document.getElementById('tgChat2').value = tgConfig.chat2;
+
+      // بارکردنی داواکارییەکان
+      const orders = JSON.parse(localStorage.getItem('kb_orders') || '[]');
+      document.getElementById('ordersCountDisplay').innerText = orders.length;
+
+      const listDiv = document.getElementById('ordersList');
+      if (orders.length === 0) {
+        listDiv.innerHTML = '<p class="text-slate-500 text-center py-4">هیچ داواکارییەک نییە</p>';
+        return;
+      }
+
+      listDiv.innerHTML = orders.map((o) => `
+        <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 flex justify-between items-start">
+          <div>
+            <span class="font-bold text-white">${o.fullName}</span>
+            <span class="text-emerald-400 block font-mono text-[11px]">${o.phone}</span>
+            <span class="text-slate-400 text-[11px]">${o.city} - ${o.address} (${o.weight} کگم)</span>
+          </div>
+          <a href="https://wa.me/964${o.phone.replace(/^0+/, '')}" target="_blank" class="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-[10px] font-bold">
+            واتسئەپ
+          </a>
+        </div>
+      `).join('');
+    }
+
+    function saveTelegramSettings() {
+      const token = document.getElementById('tgToken').value.trim();
+      const chat1 = document.getElementById('tgChat1').value.trim();
+      const chat2 = document.getElementById('tgChat2').value.trim();
+
+      localStorage.setItem('kb_tg_config', JSON.stringify({ token, chat1, chat2 }));
+      alert("ڕێکخستنی تیلیگرام پاشەکەوت کرا!");
+    }
+
+    function clearAllOrders() {
+      if (confirm("دڵنیایت لە سڕینەوەی هەموو داواکارییەکان؟")) {
+        localStorage.removeItem('kb_orders');
+        loadAdminData();
+      }
+    }
+  </script>
+
+</body>
+</html>
